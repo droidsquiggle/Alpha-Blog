@@ -52,5 +52,5 @@ group :production do
   gem 'pg'
   
   
-  gem 'rails_12factcor'
+  #gem 'rails_12factcor'
 end
