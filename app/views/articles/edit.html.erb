@@ -1,8 +1,8 @@
-<h1>Create an article</h1>
+<h1>Edit an article</h1>
 
 <!-- when we fail at creating a new article for what ever reason (i.e. we dont enter a title) it is redirected to reload this 'new' page so at the top of the page display errors if any from the @article object -->
 <% if @article.errors.any? %>
-<h2>The following errors prevented the article from being created</h2>
+  <h2>The following errors prevented the article from being edited</h2>
   <ul>
     <% @article.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>

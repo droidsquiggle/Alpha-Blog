@@ -1,0 +1,23 @@
+<h1>Listing all Articles</h1>
+
+<p>
+  <!-- If you look at rake routes you'll see the new article path is new_article so in the link to we must link our page to new_article_path remembering to put _path after  -->
+  <%= link_to "Create new Article", new_article_path %>
+</p>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+  </tr>
+  
+  <% @articles.each do |article| %>
+  <tr>
+    <td><%= article.title %></td>
+    <td><%= article.description %></td>
+    <td><%= link_to "Edit", edit_article_path(article) %></td>
+    <td><%= link_to "Show", article_path(article) %></td>
+  </tr>
+  <% end %>
+  
+</table>
