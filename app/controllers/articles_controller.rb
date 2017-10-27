@@ -58,6 +58,14 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  # define a function to delete an article from the table
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    flash[:notice] = 'Article successfully deleted'
+    redirect_to articles_path
+  end
+
   # define a private function which will assign the article params to the article table object
   private def article_params
     # the top level key for params.require is :article... from here we are going to permit for the key that is article the values that are :title and :description
