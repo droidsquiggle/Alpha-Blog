@@ -13,11 +13,24 @@ class ArticlesController < ApplicationController
     
     # take the submitted variables and insert into table
     @article = Article.new(article_params)
-    @article.save
     
-    # function that will show display the article.
-    redirect_to_articles_show(@article)
-
+    # if the article saved display a message to the screen and then redirect to article path
+    if @article.save
+      flash[:notice] = 'Article successfully created'
+    
+      # function that will redirect the page so we dont land on an error for not having an article/create template
+      redirect_to article_path(@article)
+    else # the article did not save, there was an error for one reason or another
+      # if the article doesnt save reload the 'new' page
+      render 'new'
+    end
+  end
+  
+  # define a function to show the article after successful save
+  def show
+    # assign the @article object the article located at the id given from the params arguments
+    # need to create a view in articles for show in order for anything to happen at this point
+    @article = Article.find(params[:id])
   end
   
   # define a private function which will assign the article params to the article table object
