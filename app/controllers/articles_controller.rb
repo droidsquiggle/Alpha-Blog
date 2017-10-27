@@ -1,4 +1,8 @@
 class ArticlesController < ApplicationController
+  # since we removed the @article = Article.find(params[:id]) assignment from all actions and migratd it to a private method 
+  # we need to tell the application to set the article before the action is taken but ONLY do this for specific methods
+  before_action :set_article, only: [:edit, :update, :show, :destroy]
+  
   
   # controller for displaying ALL articles
   def index
@@ -13,7 +17,7 @@ class ArticlesController < ApplicationController
   
   # define a function to show an article given an ID from the table
   def edit
-    @article = Article.find(params[:id])
+
   end
   
   # this function is required for the submit button on the new.html.erb form for creating a new entry into the database
@@ -40,7 +44,7 @@ class ArticlesController < ApplicationController
   # this function is required for the edit function to actually update the database with the edits
   def update
     # assign the to the @article object the article we are going to be updating
-    @article = Article.find(params[:id])
+
     
     # check if article can be successfully updated else redisplay edit page
     if @article.update(article_params) # update the given article with the given params from the form submission
@@ -55,19 +59,26 @@ class ArticlesController < ApplicationController
   def show
     # assign the @article object the article located at the id given from the params arguments
     # need to create a view in articles for show in order for anything to happen at this point
-    @article = Article.find(params[:id])
+   
   end
 
   # define a function to delete an article from the table
   def destroy
-    @article = Article.find(params[:id])
+    
     @article.destroy
     flash[:notice] = 'Article successfully deleted'
     redirect_to articles_path
   end
 
-  # define a private function which will assign the article params to the article table object
-  private def article_params
+  # define a private functions
+  private 
+  # reduce code reuse by putting @article = Article.find(params[:id]) code within a method
+  def set_article
+    @article = Article.find(params[:id]) 
+  end
+  
+  # assign the article params to the article object
+  def article_params
     # the top level key for params.require is :article... from here we are going to permit for the key that is article the values that are :title and :description
     params.require(:article).permit(:title, :description)
   end
