@@ -1,0 +1,20 @@
+<h1>Create an article</h1>
+
+<%= form_for @article do |f| %>
+  <!-- Creates the label for the title and a text field to enter in a title -->
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  
+  <!-- Creates the label for the description and a text AREA to enter in a description -->
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  
+  <!-- Creates a submit button for the articles table -->
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
