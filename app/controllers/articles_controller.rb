@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
     
     # if the article saved display a message to the screen and then redirect to article path
     if @article.save
-      flash[:notice] = 'Article successfully created'
+      flash[:success] = 'Article successfully created'
     
       # function that will redirect the page so we dont land on an error for not having an article/create template
       redirect_to article_path(@article)
@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
     
     # check if article can be successfully updated else redisplay edit page
     if @article.update(article_params) # update the given article with the given params from the form submission
-      flash[:notice] = 'Article successfully updated'
+      flash[:success] = 'Article successfully updated'
       redirect_to article_path(@article)
     else
       render 'edit'
@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
   def destroy
     
     @article.destroy
-    flash[:notice] = 'Article successfully deleted'
+    flash[:danger] = 'Article successfully deleted'
     redirect_to articles_path
   end
 

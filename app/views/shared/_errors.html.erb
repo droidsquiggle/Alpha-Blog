@@ -1,0 +1,25 @@
+<!-- when we fail at creating a new article for what ever reason (i.e. we dont enter a title) it is redirected to display the top of the page any errors from the @article object -->
+<% if obj.errors.any? %>
+  <div class="row">
+    <!-- col-xs-offset-2 offsets the grid by the number given remember bootstrap is a 12 column spanning tool -->
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h2 class="panel-title">
+            <!-- pluralize is a method where if it returns just 1 the quoted word returns as is, if multiple items are return it adds an s -->
+            <%= pluralize(obj.errors.count, "error") %>
+            prohibited this article from being saved:
+          </h2>
+          
+          <div class="panel-body">
+            <ul>
+              <% obj.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

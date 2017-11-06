@@ -1,13 +1,4 @@
-<!-- when we fail at creating a new article for what ever reason (i.e. we dont enter a title) it is redirected to display the top of the page any errors from the @article object -->
-<% if @article.errors.any? %>
-<h2>The following errors prevented the article from being created</h2>
-  <ul>
-    <% @article.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
-
+<%= render 'shared/errors', obj: @article %>
 
 <!-- Creates the label for the title and a text field to enter in a title -->
 <div class="row">
