@@ -29,6 +29,9 @@ class ArticlesController < ApplicationController
     # take the submitted variables and insert into table
     @article = Article.new(article_params)
     
+    # hard coding the user of the article to be first user in the user table
+    @article.user = User.first
+    
     # if the article saved display a message to the screen and then redirect to article path
     if @article.save
       flash[:success] = 'Article successfully created'
