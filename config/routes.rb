@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   # resources
   resources :articles
 
+  # send signup to users controller and the new action
+  get 'signup', to: 'users#new'
+  
+  # all the routes except the new user routes
+  resources :users, except: [:new]
+  
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
