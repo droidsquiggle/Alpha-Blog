@@ -32,8 +32,8 @@ class ArticlesController < ApplicationController
     # take the submitted variables and insert into table
     @article = Article.new(article_params)
     
-    # hard coding the user of the article to be first user in the user table
-    @article.user = User.first
+    # before we get to this create action we know we have a current user because create requires user
+    @article.user = current_user
     
     # if the article saved display a message to the screen and then redirect to article path
     if @article.save
