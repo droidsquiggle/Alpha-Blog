@@ -1,8 +1,10 @@
 class ArticlesController < ApplicationController
   # since we removed the @article = Article.find(params[:id]) assignment from all actions and migratd it to a private method 
   # we need to tell the application to set the article before the action is taken but ONLY do this for specific methods
+  # Always have the before_action in order of how you want them to execute
   before_action :set_article, only: [:edit, :update, :show, :destroy]
-  
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
   
   # controller for displaying ALL articles
   def index
@@ -76,14 +78,21 @@ class ArticlesController < ApplicationController
 
   # define a private functions
   private 
-  # reduce code reuse by putting @article = Article.find(params[:id]) code within a method
-  def set_article
-    @article = Article.find(params[:id]) 
-  end
+    # reduce code reuse by putting @article = Article.find(params[:id]) code within a method
+    def set_article
+      @article = Article.find(params[:id]) 
+    end
+    
+    # assign the article params to the article object
+    def article_params
+      # the top level key for params.require is :article... from here we are going to permit for the key that is article the values that are :title and :description
+      params.require(:article).permit(:title, :description)
+    end
   
-  # assign the article params to the article object
-  def article_params
-    # the top level key for params.require is :article... from here we are going to permit for the key that is article the values that are :title and :description
-    params.require(:article).permit(:title, :description)
-  end
+    def require_same_user
+      if current_user != @article.user
+        flash[:danger] = "You can only edit or delete your own article"
+        redirect_to root_path
+      end
+    end
 end

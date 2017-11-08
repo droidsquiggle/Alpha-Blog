@@ -16,6 +16,11 @@ Rails.application.routes.draw do
   # all the routes except the new user routes
   resources :users, except: [:new]
   
+  # create routes for login sessions
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
