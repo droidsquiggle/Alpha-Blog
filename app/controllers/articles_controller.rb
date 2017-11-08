@@ -7,7 +7,8 @@ class ArticlesController < ApplicationController
   # controller for displaying ALL articles
   def index
     # take note variable name is now plural for we will be holding all articles in this object
-    @articles = Article.all
+    # this paginate function will load a default number of articles per page
+    @articles = Article.paginate(page:params[:page], per_page: 5)
   end
   
   def new
