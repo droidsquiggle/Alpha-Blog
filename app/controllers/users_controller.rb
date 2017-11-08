@@ -15,8 +15,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
+      session[:user_id] = @user.id
       flash[:success] = "Welcome to the ALPHA-BLOG #{@user.username}"
-      redirect_to articles_path
+      redirect_to user_path(@user)
     else
       # render new page again which will display errors
       render 'new'
