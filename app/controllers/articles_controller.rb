@@ -86,7 +86,7 @@ class ArticlesController < ApplicationController
     # assign the article params to the article object
     def article_params
       # the top level key for params.require is :article... from here we are going to permit for the key that is article the values that are :title and :description
-      params.require(:article).permit(:title, :description)
+      params.require(:article).permit(:title, :description, category_ids: [])
     end
   
     def require_same_user
