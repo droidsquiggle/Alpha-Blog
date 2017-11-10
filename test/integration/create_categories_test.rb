@@ -2,7 +2,17 @@ require 'test_helper'
 
 class CreateCategoriesTest < ActionDispatch::IntegrationTest
   
+  def setup
+    @user = User.create(username: "jon", email: "jon@jon.com", password: "test", admin: true)
+  end
+  
+  
+  
+  
   test "get new category form and create category" do
+    # remember the password is hashed so we need to pass the password into the function in order to hash it
+    sign_in_as(@user, "test")
+    
     get new_category_path
     
     #test assertion that the user can goto the categorie / new page
@@ -24,6 +34,8 @@ class CreateCategoriesTest < ActionDispatch::IntegrationTest
   
   
   test "invalid category submission results in failure" do
+    sign_in_as(@user, "test")
+    
     get new_category_path
     
     assert_template 'categories/new'
